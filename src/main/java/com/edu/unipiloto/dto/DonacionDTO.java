@@ -2,14 +2,14 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package com.example.models;
+package com.edu.unipiloto.dto;
 
 /**
  *
  * @author juanc
  */
 public class DonacionDTO {
-    private long idProyecto;
+    private String idProyecto;
     private String login;
     private String fecha;
     private int valorDonar;
@@ -17,11 +17,11 @@ public class DonacionDTO {
     public DonacionDTO() {
     }
 
-    public long getIdProyecto() {
+    public String getIdProyecto() {
         return idProyecto;
     }
 
-    public void setIdProyecto(long idProyecto) {
+    public void setIdProyecto(String idProyecto) {
         this.idProyecto = idProyecto;
     }
 

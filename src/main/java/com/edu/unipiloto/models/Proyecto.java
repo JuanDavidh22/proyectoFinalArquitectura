@@ -2,13 +2,12 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package com.example.models;
+package com.edu.unipiloto.models;
 
 import com.sun.istack.NotNull;
 import java.io.Serializable;
 import java.util.Calendar;
 import javax.persistence.Column;
-import javax.persistence.Embeddable;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
@@ -150,8 +149,6 @@ public class Proyecto implements Serializable {
         this.tipoProyecto = tipoProyecto;
     }
     
-    
-
     public String getNombre() {
         return nombre;
     }
@@ -159,7 +156,4 @@ public class Proyecto implements Serializable {
     public void setNombre(String nombre) {
         this.nombre = nombre;
     }
-
-    
-
 }

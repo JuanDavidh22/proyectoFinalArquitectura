@@ -1,4 +1,4 @@
-package com.example;
+package com.edu.unipiloto.Main;
 
 import org.eclipse.jetty.server.Server;
 import org.eclipse.jetty.webapp.WebAppContext;
@@ -12,9 +12,7 @@ import org.eclipse.jetty.webapp.WebAppContext;
  */
 public class Main {
 
-    /**
-     * @param args
-     */
+    
     public static void main(String[] args) throws Exception{
         String webappDirLocation = "src/main/webapp/";
 

@@ -3,12 +3,12 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.example.services;
+package com.edu.unipiloto.services;
 
-import com.example.PersistenceManager;
-import com.example.models.Usuario;
-import com.example.models.UsuarioDTO;
-import com.example.models.Proyecto;
+import com.edu.unipiloto.Main.PersistenceManager;
+import com.edu.unipiloto.models.Usuario;
+import com.edu.unipiloto.dto.UsuarioDTO;
+import com.edu.unipiloto.models.Proyecto;
 import java.util.List;
 import javax.annotation.PostConstruct;
 import javax.persistence.EntityManager;

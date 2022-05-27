@@ -4,7 +4,7 @@
  * and open the template in the editor.
  */
 
-package com.example.models;
+package com.edu.unipiloto.models;
 
 import com.sun.istack.NotNull;
 import java.io.Serializable;

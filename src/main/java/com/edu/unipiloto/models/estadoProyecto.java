@@ -2,16 +2,18 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package com.example.models;
+package com.edu.unipiloto.models;
+
 
 /**
  *
  * @author juanc
  */
+
 public class estadoProyecto {
     
     private String login;
-    private long idProyecto;
+    private String idProyecto;
     private String estado; 
 
     public estadoProyecto(){
@@ -26,11 +28,11 @@ public class estadoProyecto {
         this.login = login;
     }
 
-    public long getIdProyecto() {
+    public String getIdProyecto() {
         return idProyecto;
     }
 
-    public void setIdProyecto(long idProyecto) {
+    public void setIdProyecto(String idProyecto) {
         this.idProyecto = idProyecto;
     }
 
@@ -41,6 +43,4 @@ public class estadoProyecto {
     public void setEstado(String estado) {
         this.estado = estado;
     }
-    
-    
 }

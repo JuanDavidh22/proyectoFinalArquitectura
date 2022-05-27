@@ -4,7 +4,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.example;
+package com.edu.unipiloto.Main;
 
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
@@ -22,16 +22,13 @@ public class PersistenceManager {
     protected EntityManagerFactory emf;
 
     public static PersistenceManager getInstance() {
-
         return singleton;
     }
-    
 
     private PersistenceManager() {
     }
 
     public EntityManagerFactory getEntityManagerFactory() {
-
         if (emf == null) {
             createEntityManagerFactory();
         }
@@ -39,7 +36,6 @@ public class PersistenceManager {
     }
 
     public void closeEntityManagerFactory() {
-
         if (emf != null) {
             emf.close();
             emf = null;
@@ -50,7 +46,6 @@ public class PersistenceManager {
     }
 
     protected void createEntityManagerFactory() {
-
         this.emf = Persistence.createEntityManagerFactory("mongoPU", System.getProperties());
         if (DEBUG) {
             System.out.println("n*** Persistence started at " + new java.util.Date());

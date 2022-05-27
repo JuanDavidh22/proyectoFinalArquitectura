@@ -4,7 +4,7 @@
  * and open the template in the editor.
  */
 
-package com.example.models;
+package com.edu.unipiloto.dto;
 
 /**
  *
@@ -29,6 +29,7 @@ public class UsuarioDTO {
     public UsuarioDTO(){
         
     }
+
 
     public String getLogin() {
         return login;
