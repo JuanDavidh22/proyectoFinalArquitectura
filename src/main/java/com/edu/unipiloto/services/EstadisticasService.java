@@ -48,6 +48,7 @@ public class EstadisticasService {
         for (int i = 0; i < pro.size(); i++) {
             valorPromedio += pro.get(i);
         }
+        valorPromedio /= pro.size(); 
         rta.put("ValorEsperadoPromedio", valorPromedio);
         return Response.status(200).header("Access-Control-Allow-Origin", "*").entity(rta.toJSONString()).build();
     }
@@ -56,10 +57,12 @@ public class EstadisticasService {
     @Path("/getValorPromedioFinanciado")
     @Produces(MediaType.APPLICATION_JSON)
     public Response getValorFinanciadoPromedio() {
-        Query q = entityManager.createQuery("select d.valorDonar from Donacion d");
+       
         long valorPromedio = 0;
         JSONObject rta = new JSONObject();
+         Query q = entityManager.createQuery("select d.valorDonar from Donacion d");
         List<Integer> pro = q.getResultList();
+        
         for (int i = 0; i < pro.size(); i++) {
             valorPromedio += pro.get(i);
         }

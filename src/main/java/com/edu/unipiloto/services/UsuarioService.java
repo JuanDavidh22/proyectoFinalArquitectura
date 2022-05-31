@@ -8,6 +8,7 @@ package com.edu.unipiloto.services;
 import com.edu.unipiloto.Main.PersistenceManager;
 import com.edu.unipiloto.models.Usuario;
 import com.edu.unipiloto.dto.UsuarioDTO;
+import com.edu.unipiloto.models.ActualizarUsuario;
 import com.edu.unipiloto.models.Proyecto;
 import java.util.List;
 import javax.annotation.PostConstruct;
@@ -53,7 +54,51 @@ public class UsuarioService {
         List<Usuario> usuarios = q.getResultList();
         return Response.status(200).header("Access-Control-Allow-Origin", "*").entity(usuarios).build();
     }
-    
+
+    public Usuario getUser(String login) {
+        Query q = entityManager.createQuery("select u from Usuario u WHERE u.login = '" + login + "'");
+        Usuario actualizarUsuario = (Usuario) q.getSingleResult();
+        return actualizarUsuario;
+    }
+
+    @POST
+    @Path("/actualizarUsuario")
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response actualizarUsuario(ActualizarUsuario usuario) {
+        ActualizarUsuario userConActualizacion = usuario;
+        JSONObject rta = new JSONObject();
+
+        userConActualizacion.setApellidos(usuario.getApellidos());
+        userConActualizacion.setDocumento(usuario.getDocumento());
+        userConActualizacion.setEmail(usuario.getEmail());
+        userConActualizacion.setLogin(usuario.getLogin());
+        userConActualizacion.setNombres(usuario.getNombres());
+        
+        Usuario userActual = getUser(userConActualizacion.getLogin());
+        
+        userActual.setApellidos(userConActualizacion.getApellidos());
+        userActual.setDocumento(userConActualizacion.getDocumento());
+        userActual.setEmail(userConActualizacion.getEmail());
+        userActual.setNombres(userConActualizacion.getNombres());
+        try {
+            entityManager.getTransaction().begin();
+            entityManager.merge(userActual);
+            entityManager.getTransaction().commit();
+            entityManager.refresh(userActual);
+            rta.put("mensaje", "Se actualizó correctamente el usuario");
+        } catch (Throwable t) {
+            t.printStackTrace();
+            if (entityManager.getTransaction().isActive()) {
+                entityManager.getTransaction().rollback();
+            }
+            userConActualizacion = null;
+        } finally {
+            entityManager.clear();
+            entityManager.close();
+        }
+        return Response.status(200).header("Access-Control-Allow-Origin", "*").entity(rta.toJSONString()).build();
+    }
+
     @POST
     @Path("/addUser")
     @Produces(MediaType.APPLICATION_JSON)
@@ -90,6 +135,7 @@ public class UsuarioService {
         }
         return Response.status(200).header("Access-Control-Allow-Origin", "*").entity(rta.toJSONString()).build();
     }
+
     @OPTIONS
     public Response cors(@javax.ws.rs.core.Context HttpHeaders requestHeaders) {
         return Response.status(200).header("Access-Control-Allow-Origin", "*").header("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE, OPTIONS").header("Access-Control-Allow-Headers", "AUTHORIZATION, content-type, accept").build();

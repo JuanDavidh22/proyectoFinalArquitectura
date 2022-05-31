@@ -7,6 +7,8 @@ package com.edu.unipiloto.services;
 import com.edu.unipiloto.Main.PersistenceManager;
 import com.edu.unipiloto.dto.DonacionDTO;
 import com.edu.unipiloto.models.Donacion;
+import com.edu.unipiloto.models.DonacionesPromedioPorProyecto;
+import com.edu.unipiloto.models.ObtenerDonacionesPorUsuario;
 import com.edu.unipiloto.models.Proyecto;
 import com.edu.unipiloto.models.Usuario;
 import java.util.ArrayList;
@@ -67,32 +69,30 @@ public class DonacionService {
     }
 
     @GET
-    @Path("/getDonaciones/{name}")
+    @Path("/getDonaciones/{login}")
     @Produces(MediaType.APPLICATION_JSON)
-    public Response getDonaciones(@PathParam("name") String name) {
+    public Response getDonaciones(@PathParam("login") String login) {
         Query q = entityManager.createQuery("select d from Donacion d");
         List<Donacion> donaciones = q.getResultList();
         List<Donacion> donacionesName = new ArrayList<Donacion>();
         for (int i = 0; i < donaciones.size(); i++) {
-            if (donaciones.get(i).getLogin().equals(name)) {
+            if (donaciones.get(i).getLogin().equals(login)) {
                 donacionesName.add(donaciones.get(i));
             }
         }
         return Response.status(200).header("Access-Control-Allow-Origin", "*").entity(donacionesName).build();
     }
 
-    @POST
-    @Path("/getValorAcumuladoDonacionesAUnProyecto")
+    @GET
+    @Path("/getValorAcumuladoDonacionesAUnProyecto/{idProyecto}")
     @Produces(MediaType.APPLICATION_JSON)
-    public Response getValorAcumuladoDonacionesAUnProyecto(String JSON) {
+    public Response getValorAcumuladoDonacionesAUnProyecto(@PathParam("idProyecto") String idProyecto) {
 
-        String[] login = JSON.split("\"");
-        String idProyecto = login[3];
-        Query q = entityManager.createQuery("select d.valorDonar from Donacion d WHERE d.idProyecto = '" + idProyecto + "'");
-
-        long valorPromedio = 0;
         JSONObject rta = new JSONObject();
+        Query q = entityManager.createQuery("select d.valorDonar from Donacion d WHERE d.idProyecto = '" + idProyecto + "'");
         List<Integer> pro = q.getResultList();
+        
+        long valorPromedio = 0;
         for (int i = 0; i < pro.size(); i++) {
             valorPromedio += pro.get(i);
         }
